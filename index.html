@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ZeroTrace Planner — ყოველდღიური ანონიმური დამგეგმავი. მონაცემები ინახება მხოლოდ თქვენს ბრაუზერში." />
+  <meta name="color-scheme" content="dark" />
+  <title>ZeroTrace Planner</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+
+    <!-- სათაური და კონცეფციის აღწერა -->
+    <header class="header">
+      <div class="badge" aria-hidden="true">🔒 100% ანონიმური</div>
+      <h1 class="title">Zero<span>Trace</span> Planner</h1>
+      <p class="subtitle">
+        ყოველდღიური დამგეგმავი ანგარიშის, სერვერისა და თვალთვალის გარეშე.
+        თქვენი მონაცემები არსად იგზავნება — ისინი ინახება მხოლოდ ამ ბრაუზერში.
+      </p>
+      <p class="date" id="todayDate"></p>
+    </header>
+
+    <!-- ახალი დავალების ფორმა -->
+    <section class="card" aria-label="ახალი დავალება">
+      <form id="taskForm" class="task-form" autocomplete="off">
+        <label for="taskInput" class="sr-only">ახალი დავალება</label>
+        <input
+          type="text"
+          id="taskInput"
+          class="task-input"
+          placeholder="რა უნდა გააკეთო დღეს?"
+          maxlength="120"
+          required
+        />
+        <button type="submit" class="btn btn-primary">დამატება</button>
+      </form>
+    </section>
+
+    <!-- პროგრესის ზოლი -->
+    <section class="card" aria-label="დღევანდელი პროგრესი">
+      <div class="progress-head">
+        <span class="progress-label" id="progressText">დავალებები ჯერ არ არის დამატებული</span>
+        <span class="progress-percent" id="progressPercent">0%</span>
+      </div>
+      <div
+        class="progress"
+        id="progressBar"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="0"
+        aria-labelledby="progressText"
+      >
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <p class="progress-count" id="progressCount">0 / 0 შესრულებულია</p>
+    </section>
+
+    <!-- დავალებების სია -->
+    <section class="card" aria-label="დავალებების სია">
+      <ul class="task-list" id="taskList"></ul>
+      <p class="empty" id="emptyState">სია ცარიელია. დაამატე პირველი დავალება ზემოთ ✨</p>
+
+      <div class="list-footer" id="listFooter" hidden>
+        <button type="button" class="btn btn-ghost" id="clearDoneBtn">შესრულებულების წაშლა</button>
+        <button type="button" class="btn btn-ghost danger" id="clearAllBtn">ყველაფრის გასუფთავება</button>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>არანაირი ბექენდი · არანაირი ქუქი · არანაირი ანალიტიკა</p>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

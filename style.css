@@ -1,0 +1,352 @@
+/* ==========================================================
+   ZeroTrace Planner — სტილები
+   მუქი, მინიმალისტური დიზაინი; Flexbox + Grid; რესპონსიული
+   ========================================================== */
+
+/* ---------- ფერები და ცვლადები ---------- */
+:root {
+  --bg: #0b0d12;
+  --bg-glow-1: rgba(99, 102, 241, 0.18);
+  --bg-glow-2: rgba(16, 185, 129, 0.12);
+  --surface: #141821;
+  --surface-2: #1b2030;
+  --border: #262c3d;
+  --text: #e8eaf0;
+  --muted: #8b92a7;
+  --accent: #6366f1;
+  --accent-2: #10b981;
+  --danger: #f43f5e;
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- ბაზა ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Georgian", sans-serif;
+  color: var(--text);
+  line-height: 1.5;
+  background:
+    radial-gradient(900px 500px at 10% -10%, var(--bg-glow-1), transparent 60%),
+    radial-gradient(800px 500px at 100% 0%, var(--bg-glow-2), transparent 60%),
+    var(--bg);
+  background-attachment: fixed;
+}
+
+/* ეკრანის წამკითხველებისთვის ხილული, თვალისთვის დამალული */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- მთავარი კონტეინერი (Grid) ---------- */
+.app {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: clamp(16px, 4vw, 40px) clamp(14px, 4vw, 24px) 40px;
+  display: grid;
+  gap: 18px;
+}
+
+/* ---------- სათაური ---------- */
+.header { text-align: center; padding: 8px 0 4px; }
+
+.badge {
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--accent-2);
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 999px;
+}
+
+.title {
+  margin: 16px 0 10px;
+  font-size: clamp(2rem, 7vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.title span {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  margin: 0 auto;
+  max-width: 48ch;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.date {
+  margin: 12px 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-transform: capitalize;
+}
+
+/* ---------- ბარათები ---------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: clamp(14px, 3vw, 20px);
+  box-shadow: var(--shadow);
+}
+
+/* ---------- ფორმა ---------- */
+.task-form {
+  display: flex;
+  gap: 10px;
+}
+
+.task-input {
+  flex: 1;
+  min-width: 0;
+  padding: 13px 16px;
+  font: inherit;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.task-input::placeholder { color: var(--muted); }
+.task-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+}
+
+/* ---------- ღილაკები ---------- */
+.btn {
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  border: 0;
+  border-radius: 12px;
+  padding: 13px 20px;
+  transition: transform 0.15s var(--ease), filter 0.2s, background 0.2s;
+}
+.btn:active { transform: scale(0.97); }
+.btn:focus-visible,
+.task-delete:focus-visible,
+.task-check:focus-visible + .checkmark {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), #8b5cf6);
+}
+.btn-primary:hover { filter: brightness(1.12); }
+
+.btn-ghost {
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover { color: var(--text); background: var(--surface-2); }
+.btn-ghost.danger:hover { color: var(--danger); border-color: var(--danger); background: rgba(244, 63, 94, 0.08); }
+
+/* ---------- პროგრესი ---------- */
+.progress-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.progress-label { font-size: 0.95rem; color: var(--text); }
+.progress-percent {
+  font-size: 1.5rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.progress {
+  height: 12px;
+  overflow: hidden;
+  background: var(--surface-2);
+  border-radius: 999px;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transition: width 0.6s var(--ease);
+}
+.progress.complete .progress-fill {
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.6);
+}
+
+.progress-count {
+  margin: 10px 0 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+/* ---------- დავალებების სია ---------- */
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  animation: slideIn 0.35s var(--ease);
+  transition: opacity 0.25s, transform 0.25s, border-color 0.2s;
+}
+.task:hover { border-color: #38405a; }
+.task.removing { opacity: 0; transform: translateX(24px); }
+
+/* მორგებული checkbox */
+.task-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+.task-check {
+  position: absolute;
+  opacity: 0;
+  width: 0; height: 0;
+}
+.checkmark {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 24px; height: 24px;
+  border: 2px solid var(--muted);
+  border-radius: 8px;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s var(--ease);
+}
+.checkmark::after {
+  content: "";
+  width: 6px; height: 11px;
+  margin-top: -2px;
+  border: solid #fff;
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg) scale(0);
+  transition: transform 0.2s var(--ease);
+}
+.task-check:checked + .checkmark {
+  background: var(--accent-2);
+  border-color: var(--accent-2);
+}
+.task-check:checked + .checkmark::after { transform: rotate(45deg) scale(1); }
+.task-label:hover .checkmark { transform: scale(1.08); }
+
+.task-text {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  transition: color 0.2s;
+}
+.task.done .task-text {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.task-delete {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 34px; height: 34px;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+}
+.task-delete:hover { color: var(--danger); background: rgba(244, 63, 94, 0.12); }
+
+.empty {
+  margin: 0;
+  padding: 18px 8px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+.empty[hidden],
+.list-footer[hidden] { display: none; }
+
+.list-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+/* ---------- ფუტერი ---------- */
+.footer {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.footer p { margin: 0; }
+
+/* ---------- ანიმაცია ---------- */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- რესპონსივი ---------- */
+@media (max-width: 480px) {
+  .task-form { flex-direction: column; }
+  .btn-primary { width: 100%; }
+  .list-footer { flex-direction: column; }
+  .list-footer .btn { width: 100%; }
+}
+
+@media (min-width: 900px) {
+  .app { max-width: 720px; gap: 22px; }
+}
